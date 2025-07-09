@@ -1,86 +1,114 @@
+Here is a **cleaned, modernized, and professionally rewritten** version of your `README.md` for the **Plant Disease Detection System**, with improved formatting, clarity, and emphasis on key points — while removing unnecessary clutter:
+
+---
+
 # Plant Disease Detection System
 
-A machine learning-powered web application for detecting diseases in tomato and corn plants using computer vision and deep learning.
+A deep learning–based web application for detecting diseases in tomato and corn plants using computer vision.
 
 ![Plant Disease Detection](images/image1.png)
 
+---
 
-## 🌱 Overview
+## Overview
 
-This project provides an automated solution for identifying plant diseases in agricultural crops. Using a ResNet-50 based convolutional neural network, the system can accurately classify healthy and diseased plants, helping farmers and agricultural professionals make informed decisions about crop management.
+This project provides an AI-powered solution to help farmers and agricultural professionals detect plant diseases early. By leveraging a **ResNet-50 CNN** trained on real-world plant datasets, the system classifies healthy and diseased leaves with high accuracy.
 
-## 🎯 Features
+The application is accessible via a **Streamlit web interface**, where users can upload plant leaf images or use their webcam to receive instant diagnoses along with treatment recommendations.
 
-- **Real-time Disease Detection**: Upload images or use camera to get instant disease diagnosis
-- **Multi-crop Support**: Currently supports tomato and corn plants
-- **Treatment Recommendations**: Provides specific treatment and prevention advice for detected diseases
-- **User-friendly Interface**: Clean, intuitive Streamlit-based web interface
-- **High Accuracy**: Deep learning model trained on agricultural image datasets
+---
 
-## 🔍 Supported Diseases
+## Features
 
-### Tomato Diseases
-- **Late Blight**: Caused by *Phytophthora infestans*
-- **Early Blight**: Caused by *Alternaria solani*
-- **Healthy Tomato**: Normal, disease-free plants
+* **Real-Time Diagnosis**: Upload or capture leaf images to get instant results
+* **Multi-Crop Support**: Currently supports **tomato** and **corn**
+* **Treatment Guidance**: Suggests possible treatments and prevention tips
+* **User-Friendly UI**: Built with Streamlit for ease of use
+* **Accurate Predictions**: Fine-tuned ResNet-50 model trained on agricultural image datasets
 
-### Corn Diseases
-- **Common Rust**: Caused by *Puccinia sorghi*
-- **Healthy Corn**: Normal, disease-free plants
+---
 
-## 🚀 Getting Started
+## Supported Diseases
+
+### Tomato
+
+* **Early Blight** (*Alternaria solani*)
+* **Late Blight** (*Phytophthora infestans*)
+* **Healthy**
+
+### Corn
+
+* **Common Rust** (*Puccinia sorghi*)
+* **Healthy**
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
-- Python 3.8 or higher
-- CUDA-compatible GPU (optional, for training)
+* Python 3.8+
+* (Optional) CUDA-enabled GPU for faster training
 
 ### Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd ML_project
-   ```
 
-2. **Create and activate virtual environment**
-   ```bash
-   python -m venv vnev
-   # On Windows
-   vnev\Scripts\activate
-   # On Linux/Mac
-   source vnev/bin/activate
-   ```
+```bash
+git clone https://github.com/your-username/Plant-Disease-Detection.git
+cd Plant-Disease-Detection
+```
+
+2. **Create a virtual environment**
+
+```bash
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+```
 
 3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
 
-4. **Download the pre-trained model**
-   - Ensure `plant_disease_model.pth` is in the `models/` directory
-   - If training from scratch, see the Training section below
+```bash
+pip install -r requirements.txt
+```
 
-### Running the Application
+4. **Download the trained model**
+
+Place the `plant_disease_model.pth` file in the `models/` directory.
+(If training from scratch, see [Training](#training) section below.)
+
+---
+
+## Running the Application
+
+Start the web interface with:
 
 ```bash
 streamlit run app.py
 ```
 
-The application will be available at `http://localhost:8501`
+Navigate to `http://localhost:8501` in your browser to interact with the app.
 
-## 🧠 Model Architecture
+---
 
-- **Base Model**: ResNet-50 (pre-trained on ImageNet)
-- **Custom Classifier**: 
-  - Fully connected layer (2048 → 512)
-  - ReLU activation
-  - Dropout (0.3)
-  - Output layer (512 → num_classes)
-- **Input Size**: 224×224 RGB images
-- **Data Augmentation**: Random crops, flips, rotations, and color jittering
+## Model Architecture
 
-## 📊 Training
+* **Base Model**: ResNet-50 (ImageNet pre-trained)
+* **Custom Classifier**:
+
+  * FC layer (2048 → 512)
+  * ReLU activation
+  * Dropout (0.3)
+  * Output layer (512 → number of classes)
+* **Input Size**: 224×224 RGB
+* **Augmentations**: Random crop, flip, rotation, color jitter
+
+---
+
+## Training
 
 To train the model from scratch:
 
@@ -88,14 +116,16 @@ To train the model from scratch:
 python train.py
 ```
 
-### Training Configuration
-- **Optimizer**: Adam with learning rate 0.001
-- **Loss Function**: CrossEntropyLoss
-- **Batch Size**: 32
-- **Epochs**: Configurable (default: 25)
-- **Data Split**: 80% training, 20% validation
+**Configuration:**
 
-### Data Structure
+* Optimizer: Adam (lr = 0.001)
+* Loss: CrossEntropyLoss
+* Batch size: 32
+* Epochs: 25 (default, configurable)
+* Train/Val Split: 80/20
+
+**Dataset Folder Structure:**
+
 ```
 data/
 ├── train/
@@ -108,104 +138,122 @@ data/
     └── (same structure as train)
 ```
 
-## 🖥️ Usage
+---
+
+## Usage
 
 ### Web Interface
-1. Launch the application using `streamlit run app.py`
-2. Upload an image of a plant leaf or use the camera feature
-3. Click "Predict" to get disease diagnosis
-4. View treatment recommendations if disease is detected
+
+1. Launch the app: `streamlit run app.py`
+2. Upload an image or use the camera
+3. Click **Predict**
+4. View disease result and treatment suggestions
 
 ### Programmatic Usage
+
 ```python
 from utils.helpers import load_model, preprocess_image, predict
 from PIL import Image
 
-# Load model
 model, class_names = load_model('models/plant_disease_model.pth')
+image = Image.open('path/to/image.jpg')
+tensor = preprocess_image(image)
+label, confidence = predict(tensor, model, class_names)
 
-# Process image
-image = Image.open('path/to/plant/image.jpg')
-tensor_image = preprocess_image(image)
-
-# Make prediction
-prediction, confidence = predict(tensor_image, model, class_names)
-print(f"Disease: {prediction}, Confidence: {confidence:.2%}")
+print(f"Disease: {label}, Confidence: {confidence:.2%}")
 ```
 
-## 📁 Project Structure
+---
+
+## Project Structure
 
 ```
-ML_project/
-├── app.py                 # Streamlit web application
-├── train.py              # Model training script
-├── model_resnet.ipynb     # Jupyter notebook for experiments
-├── requirements.txt       # Python dependencies
-├── README.md             # Project documentation
-├── data/                 # Training and test datasets
-│   ├── train/
-│   └── test/
-├── models/               # Trained model files
+Plant-Disease-Detection/
+├── app.py                  # Streamlit application
+├── train.py                # Training script
+├── model_resnet.ipynb      # Notebook for model experiments
+├── requirements.txt        # Project dependencies
+├── README.md               # Documentation
+├── data/                   # Dataset (train/test folders)
+├── models/
 │   └── plant_disease_model.pth
-├── utils/                # Utility functions
-│   └── helpers.py
-├── images/               # Demo images and screenshots
-└── vnev/                 # Virtual environment
+├── utils/
+│   └── helpers.py          # Preprocessing and prediction utils
+├── images/                 # Demo and UI screenshots
+└── venv/                   # Virtual environment (optional)
 ```
 
-## 🔧 Dependencies
+---
 
-Key packages used in this project:
+## Dependencies
 
-- **PyTorch**: Deep learning framework
-- **Torchvision**: Computer vision utilities
-- **Streamlit**: Web application framework
-- **OpenCV**: Image processing
-- **Pillow**: Image handling
-- **NumPy**: Numerical computing
-- **Matplotlib**: Plotting and visualization
+Key libraries:
 
-See `requirements.txt` for complete list with versions.
+* `torch`, `torchvision` – Model and training
+* `streamlit` – Web app
+* `opencv-python` – Webcam capture
+* `Pillow` – Image handling
+* `numpy`, `matplotlib` – Visualization and processing
 
-## 📸 Demo Images
+> See `requirements.txt` for full list.
+
+---
+
+## Demo
 
 ![Healthy Tomato](images/tomato_earlybright.png)
-*Example of affected tomato plant*
+*Tomato leaf affected by early blight*
 
 ![Diseased Corn](images/rust.png)
-*Example of corn plant affected by common rust*
+*Corn leaf affected by common rust*
 
 ![App Interface](images/image2.png)
 ![App Interface](images/image3.png)
-*Streamlit web interface showing prediction results*
+*Prediction results in the Streamlit interface*
 
-## 🤝 Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+## Contributing
+
+Contributions are welcome!
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m "Add new feature"`)
+4. Push to GitHub (`git push origin feature/my-feature`)
 5. Open a Pull Request
 
-## 📈 Future Improvements
+---
 
-- [ ] Add support for more crop types (potato, pepper, etc.)
-- [ ] Implement severity assessment for diseases
-- [ ] Add multilingual support
-- [ ] Integrate with mobile applications
-- [ ] Real-time video analysis
-- [ ] Database integration for tracking disease patterns
-- [ ] Weather data integration for enhanced predictions
+## Roadmap / Future Improvements
 
-## 📄 License
+* [ ] Add support for more crops (e.g., potato, pepper)
+* [ ] Disease severity scoring
+* [ ] Multilingual support
+* [ ] Mobile app integration
+* [ ] Real-time video analysis
+* [ ] Database for disease tracking
+* [ ] Weather-aware prediction models
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
 
-## 🙏 Acknowledgments
+## License
 
-- Plant disease dataset providers
-- PyTorch and Streamlit communities
-- Agricultural research institutions for disease information
-- Open source computer vision libraries
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
+---
 
+## Acknowledgments
+
+* Open-source plant disease image datasets
+* PyTorch and Streamlit communities
+* Agricultural research sources for disease information
+* Contributors and testers of the application
+
+---
+
+Let me know if you'd like:
+
+* A short GitHub description
+* A PDF version of the README
+* Or a simplified pitch version for a resume/portfolio
