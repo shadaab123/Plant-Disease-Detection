@@ -207,4 +207,5 @@ Key libraries:
 ![App Interface](images/image2.png)
 ![App Interface](images/image3.png)
 
+Prediction results in the Streamlit interface
 
