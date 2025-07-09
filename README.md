@@ -1,6 +1,3 @@
-Here is a **cleaned, modernized, and professionally rewritten** version of your `README.md` for the **Plant Disease Detection System**, with improved formatting, clarity, and emphasis on key points — while removing unnecessary clutter:
-
----
 
 # Plant Disease Detection System
 
@@ -211,49 +208,3 @@ Key libraries:
 ![App Interface](images/image3.png)
 *Prediction results in the Streamlit interface*
 
----
-
-## Contributing
-
-Contributions are welcome!
-
-1. Fork the repo
-2. Create a feature branch (`git checkout -b feature/my-feature`)
-3. Commit your changes (`git commit -m "Add new feature"`)
-4. Push to GitHub (`git push origin feature/my-feature`)
-5. Open a Pull Request
-
----
-
-## Roadmap / Future Improvements
-
-* [ ] Add support for more crops (e.g., potato, pepper)
-* [ ] Disease severity scoring
-* [ ] Multilingual support
-* [ ] Mobile app integration
-* [ ] Real-time video analysis
-* [ ] Database for disease tracking
-* [ ] Weather-aware prediction models
-
----
-
-## License
-
-This project is licensed under the **MIT License**. See the `LICENSE` file for details.
-
----
-
-## Acknowledgments
-
-* Open-source plant disease image datasets
-* PyTorch and Streamlit communities
-* Agricultural research sources for disease information
-* Contributors and testers of the application
-
----
-
-Let me know if you'd like:
-
-* A short GitHub description
-* A PDF version of the README
-* Or a simplified pitch version for a resume/portfolio
